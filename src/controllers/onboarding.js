@@ -9,13 +9,22 @@ const Register = async (req, res) => {
 };
 
 const Login = async (req, res) => {
-  const userExist = await User.findOne({ email: req.body.email })
+  const userExist = await User.findOne({ email: req.body.email });
   res.status(200).json({ message: "success", data: userExist });
 };
 
 const FarmDetail = async (req, res) => {
   const createFarm = await Farm.create({ ...req.body });
   res.status(200).json({ message: "sucess", data: createFarm });
+};
+
+const getFarmDetails = async (req, res) => {
+  const { id } = req.params;
+  const farmDetails = await Farm.find({ userId: id });
+  res.status(200).json({
+    message: "success",
+    data: farmDetails
+  })
 };
 
 const ScheduleAppointment = async (req, res) => {
@@ -44,4 +53,5 @@ module.exports = {
   FarmDetail,
   ScheduleAppointment,
   weatherData,
+  getFarmDetails
 };
